@@ -1,8 +1,7 @@
-resource "aws_s3_bucket" "example4" {
-  bucket = "bucketfirstv1"
-
-  tags = {
-    Name        = "My_bucket"
-    Environment = "Dev"
-  }
-}
+resource "aws_s3_bucket" "first_bucket" {
+    bucket = "s3bucketdemo-v1"
+    tags = {
+      Name = "My bucket"
+      Environment = "Dev"
+    }
+} 

@@ -1,30 +1,26 @@
 resource "aws_iam_user" "user" {
-  name = "test-user1"
+  name = "test-user"
 }
-resource "aws_s3_bucket" "example5" {
-  bucket = "bucketfirstv1"
 
-  tags = {
-    Name        = "My_bucket"
-    Environment = "Dev"
-  }
-}
 resource "aws_iam_policy" "policy" {
-  name        = "test-policy2"
+  name        = "test-policy"
   description = "A test policy"
-  policy      = jsonencode({
-    Version = "2023-11-17"
+  policy = jsonencode({
+    Version = "2012-10-17"
     Statement = [
       {
         Action = [
-          "ec2:Describe*",
+          "s3:*",
         ]
-        Effect   = "Allow"
-        Resource = "aws_s3_bucket.example5.arn"
+        Effect = "Allow"
+        # Resource = "${aws_s3_bucket.s3bucket_v1.arn}"
+        # resource = "$"
+        Resource = [var.resource]
       },
     ]
   })
 }
+
 resource "aws_iam_user_policy_attachment" "test-attach" {
   user       = aws_iam_user.user.name
   policy_arn = aws_iam_policy.policy.arn
